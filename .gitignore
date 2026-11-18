@@ -1,0 +1,30 @@
+<pre><code># Java / Spring Boot
+**/target/
+**/.classpath
+**/.project
+**/.settings/
+**/bin/
+
+# React / Node
+**/node_modules/
+**/dist/
+**/build/
+
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
+**/application-local.properties
+
+# IDE
+.idea/
+.vscode/
+*.iml
+
+# Logs
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+</code></pre>
