@@ -30,13 +30,11 @@ public class SecurityConfig {
         this.userDetailsService = userDetailsService;
     }
 
-    // 1. Password Encoder
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
-    // 2. Authentication Manager
     @Bean
     public AuthenticationManager authenticationManager() {
 
@@ -48,26 +46,32 @@ public class SecurityConfig {
         return new ProviderManager(provider);
     }
 
-    // 3. Security Context Repository
     @Bean
     public SecurityContextRepository securityContextRepository() {
 
         return new HttpSessionSecurityContextRepository();
     }
 
-    // 4. CORS Configuration
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
 
         String frontendUrl = System.getenv()
-                .getOrDefault("FRONTEND_URL", "http://localhost:5173");
+                .getOrDefault(
+                        "FRONTEND_URL",
+                        "http://localhost:5173"
+                );
 
         CorsConfiguration configuration = new CorsConfiguration();
 
         configuration.setAllowedOrigins(List.of(frontendUrl));
 
         configuration.setAllowedMethods(List.of(
-                "GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"
+                "GET",
+                "POST",
+                "PUT",
+                "PATCH",
+                "DELETE",
+                "OPTIONS"
         ));
 
         configuration.setAllowedHeaders(List.of("*"));
@@ -81,7 +85,7 @@ public class SecurityConfig {
 
         return source;
     }
-    // 5. Security Filter Chain
+
     @Bean
     public SecurityFilterChain securityFilterChain(
             HttpSecurity http,
@@ -90,55 +94,42 @@ public class SecurityConfig {
             throws Exception {
 
         http
-            // CSRF configuration
             .csrf(csrf -> csrf.disable())
 
-            // CORS configuration
             .cors(cors ->
                     cors.configurationSource(corsConfigurationSource())
             )
 
-            // Security context configuration
             .securityContext(context ->
                     context.securityContextRepository(
                             securityContextRepository
                     )
             )
 
-            // Session configuration
             .sessionManagement(session ->
                     session.sessionCreationPolicy(
                             SessionCreationPolicy.IF_REQUIRED
                     )
             )
 
-            // Authentication Manager
             .authenticationManager(authenticationManager)
 
-            // Authorization rules
             .authorizeHttpRequests(auth -> auth
 
-                    // Public authentication endpoints
                     .requestMatchers(
                             HttpMethod.POST,
                             "/api/auth/register",
                             "/api/auth/login"
                     ).permitAll()
 
-                    // Admin-only endpoints
                     .requestMatchers("/api/admin/dashboard/**")
                     .hasRole("ADMIN")
 
-                    // Staff-only endpoints
                     .requestMatchers("/api/staff/**")
                     .hasRole("STAFF")
 
-                    // All other endpoints require authentication
                     .anyRequest().authenticated()
-            )
-
-            // HTTP Basic authentication
-            .httpBasic(basic -> {});
+            );
 
         return http.build();
     }
