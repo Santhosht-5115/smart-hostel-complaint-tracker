@@ -1,388 +1,328 @@
-\# 🏨 Smart Hostel / Campus Complaint \& Resolution Tracker
+# ResolveX – Smart Hostel Complaint & Resolution Tracker
 
+A web-based complaint management system that helps students report hostel and campus issues, enables staff to manage complaints, and allows administrators to monitor complaint resolution.
 
+🌐 **Live Application:** https://smart-hostel-complaint-tracker.vercel.app/
 
-A full-stack web application designed to streamline hostel and campus complaint management using automated complaint assignment, priority scoring, escalation, and status tracking.
+💻 **GitHub Repository:** https://github.com/Santhosht-5115/smart-hostel-complaint-tracker
 
+🚀 **Backend API:** https://campus-complaint-tracker-api-ckts.onrender.com
 
+---
 
-\## 📌 Project Overview
+## 📌 Project Overview
 
+ResolveX is a full-stack web application developed to simplify hostel and campus complaint management.
 
+Students can submit complaints and track their progress. Staff members can view assigned complaints and update their status. Administrators can monitor complaints, manage staff accounts, and track escalated issues through a centralized dashboard.
 
-The Smart Hostel Complaint \& Resolution Tracker provides a centralized platform for students to report hostel and campus issues such as water supply, electricity, Wi-Fi, plumbing, and cleaning.
+The application provides a structured complaint resolution process with automatic priority calculation, category-based staff assignment, and severity-based escalation.
 
+## 🎯 Key Features
 
+- **User Authentication:** Secure login and registration with role-based access.
+- **Complaint Management:** Students can submit complaints and monitor their status.
+- **Automatic Priority Calculation:** Complaints receive priority scores based on the application's priority logic.
+- **Staff Assignment:** Complaints are assigned to staff based on category and workload.
+- **Complaint Status Tracking:** Track complaints through RAISED, IN_PROGRESS, and RESOLVED.
+- **Automatic Escalation:** Unresolved complaints are escalated based on their severity and configured time limits.
+- **Student Dashboard:** View submitted complaints and their current status.
+- **Staff Dashboard:** View assigned complaints and update their status.
+- **Admin Dashboard:** Monitor complaint statistics and overall complaint activity.
+- **Staff Account Management:** Administrators can manage staff accounts.
+- **Escalated Complaints:** View complaints that have crossed their escalation thresholds.
 
-The system helps administrators manage complaints efficiently through automated staff assignment, priority calculation, complaint tracking, and escalation of unresolved issues.
+## 👥 User Roles
 
+### 🎓 Student
+- Register and log in.
+- Submit hostel and campus complaints.
+- View submitted complaints.
+- Track complaint status.
 
+### 🛠️ Staff
+- Log in to the staff dashboard.
+- View assigned complaints.
+- Update complaint status.
+- Manage assigned complaint resolution.
 
-\## ✨ Features
+### 👨‍💼 Administrator
+- Monitor overall complaint statistics.
+- View complaint activities.
+- Manage staff accounts.
+- Monitor escalated complaints.
+
+## ⚙️ How It Works
+
+1. A student registers and logs in.
+2. The student submits a complaint by selecting its category and severity.
+3. The system calculates the complaint priority.
+4. The complaint is assigned to an appropriate staff member.
+5. Staff members update the complaint status.
+6. Students can track the latest status.
+7. Unresolved complaints are automatically escalated according to their severity and configured thresholds.
+8. Administrators monitor the complete complaint management process.
+
+## ⏰ Automatic Complaint Escalation
+
+ResolveX automatically escalates unresolved complaints according to their severity.
+
+| Severity | Escalation Threshold |
+|---|---:|
+| CRITICAL | 1 Day |
+| HIGH | 2 Days |
+| MEDIUM | 3 Days |
+| LOW | 5 Days |
+
+This helps ensure that higher-severity complaints receive attention sooner.
+
+## 📸 Application Screenshots
+
+### 🔐 Login Page
+![Login Page](screenshots/login.png)
+
+### 🎓 Student Dashboard – My Complaints
+![Student Dashboard](screenshots/student-dashboard.png)
+
+### 📝 Submit Complaint
+![Submit Complaint](screenshots/submit-complaint.png)
+
+### 🛠️ Staff Dashboard
+![Staff Dashboard](screenshots/staff-dashboard.png)
+
+### 📊 Admin Dashboard
+![Admin Dashboard](screenshots/admin-dashboard.png)
+
+### 👥 Staff Account Management
+![Staff Account Management](screenshots/staff-management.png)
+
+### ⏰ Escalated Complaints
+![Escalated Complaints](screenshots/escalated-complaints.png)
+
+## 🛠️ Technology Stack
+
+### Backend
+- Java 21
+- Spring Boot
+- Spring Security
+- Spring Data JPA
+- Hibernate
+- Maven
+- REST APIs
+
+### Frontend
+- React.js
+- JavaScript
+- Vite
+- Bootstrap
+- Bootstrap Icons
+- Axios
+- HTML5
+- CSS3
+
+### Database
+- MySQL
+- TiDB Cloud (Production Database)
+
+### Tools & Deployment
+- Eclipse IDE
+- Visual Studio Code
+- MySQL Workbench
+- Postman
+- Git
+- GitHub
+- Render – Backend Deployment
+- Vercel – Frontend Deployment
+
+## 🏗️ Application Architecture
+
+
+              STUDENT / STAFF / ADMIN
+                         |
+                         v
+                REACT FRONTEND
+                    (Vercel)
+                         |
+                         v
+                  AXIOS / REST API
+                         |
+                         v
+                SPRING BOOT BACKEND
+                    (Render)
+                         |
+             +-----------+-----------+
+             |           |           |
+             v           v           v
+          SECURITY    SERVICES    SCHEDULER
+             |           |           |
+             +-----------+-----------+
+                         |
+                         v
+                   SPRING DATA JPA
+                         |
+                         v
+                    TIDB CLOUD
+                  (MySQL Compatible)
+
+
+## 📂 Project Structure
 
-
-
-\- 🔐 User registration and authentication
-
-\- 👨‍🎓 Student complaint submission
-
-\- 📋 Complaint status tracking
-
-\- ⚡ Automated priority scoring
-
-\- 👨‍🔧 Category-based staff assignment
-
-\- ⚖️ Staff assignment based on workload
-
-\- ⏰ Automatic complaint escalation
-
-\- 📊 Admin dashboard with statistics
-
-\- 👥 Staff account management
-
-\- 🔎 Complaint search and filtering
-
-\- 🔒 Role-based access control
-
-
-
-\## 👥 User Roles
-
-
-
-\### Student
-
-\- Register and log in
-
-\- Submit new complaints
-
-\- View submitted complaints
-
-\- Track complaint status and priority
-
-
-
-\### Admin
-
-\- View complaint statistics
-
-\- Monitor all complaints
-
-\- Manage staff accounts
-
-\- View escalated complaints
-
-\- Monitor complaint statuses
-
-
-
-\### Staff
-
-\- Receive complaints assigned according to category and workload
-
-
-
-\## 🛠️ Tech Stack
-
-
-
-| Technology | Purpose |
-
-|---|---|
-
-| Java 21 | Backend programming |
-
-| Spring Boot | Backend framework |
-
-| Spring Security | Authentication and authorization |
-
-| Spring Data JPA | Database operations |
-
-| Hibernate | ORM |
-
-| MySQL 8 | Database |
-
-| React.js | Frontend |
-
-| Vite | Frontend development and build |
-
-| JavaScript | Frontend programming |
-
-| Bootstrap | UI styling |
-
-| Axios | API communication |
-
-| Maven | Backend build management |
-
-| Postman | API testing |
-
-| Git \& GitHub | Version control |
-
-
-
-\## ⚙️ Core Functionalities
-
-
-
-\### Automated Complaint Assignment
-
-Complaints are assigned to staff members based on complaint category and workload, helping distribute work efficiently.
-
-
-
-\### Priority Scoring
-
-The system calculates complaint priority automatically to help identify complaints requiring attention.
-
-
-
-\### Complaint Escalation
-
-Unresolved complaints are automatically escalated based on predefined severity-related time thresholds.
-
-
-
-\### Complaint Status Tracking
-
-
-
-Complaints are managed through the following statuses:
-
-
-
-\- `RAISED`
-
-\- `IN\_PROGRESS`
-
-\- `RESOLVED`
-
-
-
-\### Admin Dashboard
-
-Provides an overview of complaints, resolution statistics, and escalated complaints.
-
-
-
-\## 🏗️ System Architecture
-
-
-
-```text
-
-React Frontend
-
-&nbsp;     |
-
-&nbsp;     | REST API (Axios)
-
-&nbsp;     |
-
-Spring Boot Backend
-
-&nbsp;     |
-
-&nbsp;     | Spring Security
-
-&nbsp;     | Spring Data JPA
-
-&nbsp;     | Hibernate
-
-&nbsp;     |
-
-MySQL Database
-
-```
-
-
-
-\## 📂 Project Structure
-
-
-
-```text
 
 smart-hostel-complaint-tracker/
-
 │
-
-├── campus-complaint-frontend/     # React + Vite frontend
-
-│
-
-├── campus-complaint-tracker/      # Spring Boot backend
-
+├── campus-complaint-frontend/
+│   ├── public/
 │   ├── src/
-
-│   ├── pom.xml
-
-│   └── ...
-
+│   │   ├── assets/
+│   │   ├── components/
+│   │   ├── pages/
+│   │   ├── api/
+│   │   ├── App.jsx
+│   │   └── main.jsx
+│   ├── package.json
+│   └── vite.config.js
 │
-
-├── screenshots/                   # Application screenshots
-
-├── .gitignore
-
-└── README.md
-
-```
-
-
-
-\## 🚀 Setup and Installation
-
-
-
-\### Prerequisites
-
-
-
-\- Java JDK 21
-
-\- MySQL 8
-
-\- Node.js and npm
-
-\- Maven
-
-\- Git
+├── campus-complaint-tracker/
+│   ├── src/
+│   │   └── main/
+│   │       ├── java/
+│   │       │   └── com/campuscomplaint/tracker/
+│   │       │       ├── config/
+│   │       │       ├── controller/
+│   │       │       ├── dto/
+│   │       │       ├── entity/
+│   │       │       ├── repository/
+│   │       │       ├── scheduler/
+│   │       │       └── service/
+│   │       └── resources/
+│   └── pom.xml
+│
+├── screenshots/
+│   ├── login.png
+│   ├── student-dashboard.png
+│   ├── submit-complaint.png
+│   ├── staff-dashboard.png
+│   ├── admin-dashboard.png
+│   ├── staff-management.png
+│   └── escalated-complaints.png
+│
+├── README.md
+└── .gitignore
 
 
+## 🔌 API Overview
 
-\### 1. Clone the Repository
+The backend provides REST APIs for authentication, complaint management, staff operations, and administration.
 
+| Method | Endpoint | Purpose |
+|---|---|---|
+| POST | `/api/auth/register` | Register a student |
+| POST | `/api/auth/login` | Authenticate a user |
+| POST | `/api/auth/logout` | Log out |
+| GET | `/api/complaints/my` | Retrieve the logged-in student's complaints |
+| Other complaint APIs | `/api/complaints/**` | Complaint-related operations |
 
+## 🚀 Local Setup
 
-```bash
+### Prerequisites
+
+Install the following:
+
+- Java 21
+- Node.js and npm
+- MySQL
+- Maven
+- Git
+
+### 1. Clone the Repository
 
 git clone https://github.com/Santhosht-5115/smart-hostel-complaint-tracker.git
 
-```
+cd smart-hostel-complaint-tracker
 
+### 2. Configure the Backend
 
+Open the backend folder:
 
-\### 2. Backend Setup
+cd campus-complaint-tracker
 
+Configure the required database connection and application environment variables.
 
+### 3. Run the Backend
 
-Configure your MySQL database and update the backend database configuration.
+mvn spring-boot:run
 
+Backend runs locally at:
 
+`http://localhost:8080`
 
-Run the Spring Boot application using your IDE or Maven.
+### 4. Run the Frontend
 
-
-
-\### 3. Frontend Setup
-
-
-
-Navigate to the frontend folder:
-
-
-
-```bash
+Open another terminal:
 
 cd campus-complaint-frontend
 
-```
-
-
-
 Install dependencies:
-
-
-
-```bash
 
 npm install
 
-```
 
+Configure the frontend API base URL:
+
+VITE_API_BASE_URL=http://localhost:8080
 
 
 Start the development server:
 
-
-
-```bash
-
 npm run dev
 
-```
+Frontend runs locally at:
 
+`http://localhost:5173`
 
+## ☁️ Deployment
 
-\### 4. Access the Application
+ResolveX is deployed using the following services:
 
+| Component | Platform |
+|---|---|
+| Frontend | Vercel |
+| Backend | Render |
+| Production Database | TiDB Cloud |
+| Source Code | GitHub |
 
+**Live Application:** https://smart-hostel-complaint-tracker.vercel.app/
 
-Open the local URL provided by Vite in your browser.
+## ✅ Tested Functionalities
 
+- Student registration and login.
+- Existing complaint retrieval.
+- New complaint submission.
+- Automatic staff assignment.
+- Staff complaint status updates.
+- Student-side status tracking.
+- Admin dashboard complaint monitoring.
+- Staff account management.
+- Automatic complaint escalation.
+- Escalated complaints monitoring.
 
+## 🔮 Future Enhancements
 
-\## 📸 Screenshots
+- Email notifications for complaint updates.
+- Real-time complaint status notifications.
+- Complaint analytics and reporting.
+- Mobile application support.
 
+## 👨‍💻 Developer
 
-
-Screenshots of the application will be added here.
-
-
-
-\## ☁️ Deployment
-
-
-
-The application is being prepared for cloud deployment, including:
-
-
-
-\- Frontend deployment
-
-\- Spring Boot backend deployment
-
-\- Cloud MySQL database configuration
-
-
-
-Deployment details and live application links will be added after deployment is completed.
-
-
-
-\## 🔮 Future Enhancements
-
-
-
-\- Email notifications for complaint updates
-
-\- Complaint image attachments
-
-\- Real-time complaint updates
-
-\- Advanced analytics and reports
-
-\- Enhanced mobile responsiveness
-
-
-
-\## 👨‍💻 Developer
-
-
-
-\*\*Santhosh T.\*\*
-
-
+**Santhosh T**
 
 B.Tech – Computer Science and Engineering
 
+GitHub: https://github.com/Santhosht-5115
 
+Project Repository: https://github.com/Santhosht-5115/smart-hostel-complaint-tracker
 
 ---
 
-
-
-⭐ If you find this project interesting, feel free to explore the repository!
-
-
-
+⭐ If you find this project interesting, consider giving the repository a star!
