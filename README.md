@@ -167,7 +167,6 @@ This helps ensure that higher-severity complaints receive attention sooner.
 
 ## 📂 Project Structure
 
-
 smart-hostel-complaint-tracker/
 │
 ├── campus-complaint-frontend/
