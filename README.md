@@ -165,48 +165,10 @@ This helps ensure that higher-severity complaints receive attention sooner.
                   (MySQL Compatible)
 
 
-## 📂 Project Structure
+## 📁 Project Structure
 
-smart-hostel-complaint-tracker/
-│
-├── campus-complaint-frontend/
-│   ├── public/
-│   ├── src/
-│   │   ├── assets/
-│   │   ├── components/
-│   │   ├── pages/
-│   │   ├── api/
-│   │   ├── App.jsx
-│   │   └── main.jsx
-│   ├── package.json
-│   └── vite.config.js
-│
-├── campus-complaint-tracker/
-│   ├── src/
-│   │   └── main/
-│   │       ├── java/
-│   │       │   └── com/campuscomplaint/tracker/
-│   │       │       ├── config/
-│   │       │       ├── controller/
-│   │       │       ├── dto/
-│   │       │       ├── entity/
-│   │       │       ├── repository/
-│   │       │       ├── scheduler/
-│   │       │       └── service/
-│   │       └── resources/
-│   └── pom.xml
-│
-├── screenshots/
-│   ├── login.png
-│   ├── student-dashboard.png
-│   ├── submit-complaint.png
-│   ├── staff-dashboard.png
-│   ├── admin-dashboard.png
-│   ├── staff-management.png
-│   └── escalated-complaints.png
-│
-├── README.md
-└── .gitignore
+![ResolveX Project Directory](screenshots/project-structure.png)
+
 
 ## 🔌 API Overview
 
