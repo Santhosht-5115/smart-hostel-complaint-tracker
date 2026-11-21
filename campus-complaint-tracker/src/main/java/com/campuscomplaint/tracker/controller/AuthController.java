@@ -11,6 +11,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 
@@ -26,14 +27,15 @@ import com.campuscomplaint.tracker.dto.RegisterRequest;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
 
     private final AuthService authService;
+
     private final AuthenticationManager authenticationManager;
+
     private final SecurityContextRepository securityContextRepository;
 
     public AuthController(
@@ -53,6 +55,7 @@ public class AuthController {
             @RequestBody RegisterRequest request) {
 
         try {
+
             String result = authService.register(request);
 
             return ResponseEntity.status(HttpStatus.CREATED)
@@ -74,7 +77,9 @@ public class AuthController {
             HttpServletResponse httpResponse) {
 
         try {
+
             String email = request.get("email");
+
             String password = request.get("password");
 
             Authentication authentication =
@@ -127,31 +132,5 @@ public class AuthController {
                             "Invalid email or password"
                     ));
         }
-    }
-
-    // LOGOUT
-
-    @PostMapping("/logout")
-    public ResponseEntity<?> logout(
-            HttpServletRequest request,
-            HttpServletResponse response) {
-
-        SecurityContextHolder.clearContext();
-
-        HttpSession session = request.getSession(false);
-
-        if (session != null) {
-            session.invalidate();
-        }
-
-        securityContextRepository.saveContext(
-                SecurityContextHolder.createEmptyContext(),
-                request,
-                response
-        );
-
-        return ResponseEntity.ok(
-                Map.of("message", "Logout successful")
-        );
     }
 }
