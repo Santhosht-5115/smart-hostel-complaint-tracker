@@ -26,15 +26,14 @@ import com.campuscomplaint.tracker.dto.RegisterRequest;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
 
     private final AuthService authService;
-
     private final AuthenticationManager authenticationManager;
-
     private final SecurityContextRepository securityContextRepository;
 
     public AuthController(
@@ -47,14 +46,13 @@ public class AuthController {
         this.securityContextRepository = securityContextRepository;
     }
 
-    // ================= REGISTER =================
+    // REGISTER
 
     @PostMapping("/register")
     public ResponseEntity<?> register(
             @RequestBody RegisterRequest request) {
 
         try {
-
             String result = authService.register(request);
 
             return ResponseEntity.status(HttpStatus.CREATED)
@@ -67,7 +65,7 @@ public class AuthController {
         }
     }
 
-    // ================= LOGIN =================
+    // LOGIN
 
     @PostMapping("/login")
     public ResponseEntity<?> login(
@@ -76,9 +74,7 @@ public class AuthController {
             HttpServletResponse httpResponse) {
 
         try {
-
             String email = request.get("email");
-
             String password = request.get("password");
 
             Authentication authentication =
@@ -89,8 +85,6 @@ public class AuthController {
                             )
                     );
 
-            // Create Security Context
-
             SecurityContext context =
                     SecurityContextHolder.createEmptyContext();
 
@@ -98,15 +92,11 @@ public class AuthController {
 
             SecurityContextHolder.setContext(context);
 
-            // Save Login Session
-
             securityContextRepository.saveContext(
                     context,
                     httpRequest,
                     httpResponse
             );
-
-            // Identify User Role
 
             String role = authentication.getAuthorities()
                     .stream()
@@ -118,8 +108,6 @@ public class AuthController {
                     .map(authority -> authority.replace("ROLE_", ""))
                     .findFirst()
                     .orElse("UNKNOWN");
-
-            // Prepare Response
 
             Map<String, String> response = new HashMap<>();
 
@@ -139,5 +127,31 @@ public class AuthController {
                             "Invalid email or password"
                     ));
         }
+    }
+
+    // LOGOUT
+
+    @PostMapping("/logout")
+    public ResponseEntity<?> logout(
+            HttpServletRequest request,
+            HttpServletResponse response) {
+
+        SecurityContextHolder.clearContext();
+
+        HttpSession session = request.getSession(false);
+
+        if (session != null) {
+            session.invalidate();
+        }
+
+        securityContextRepository.saveContext(
+                SecurityContextHolder.createEmptyContext(),
+                request,
+                response
+        );
+
+        return ResponseEntity.ok(
+                Map.of("message", "Logout successful")
+        );
     }
 }
